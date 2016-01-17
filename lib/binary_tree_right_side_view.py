@@ -26,18 +26,23 @@ class Solution(object):
         :type root: TreeNode
         :rtype: List[int]
         """
+        if root is None:
+            return []
         res = []
         current = [root]
         p = root
         next = []
         while len(current) > 0:
-            res.append(p)
+            res.append(p.val)
             for node in current:
-                p = node
-                if p.left is not None:
-                    next.append(p.left)
-                if p.right is not None:
-                    next.append(p.right)
+                if node is not None:
+                    if node.left is not None:
+                        next.append(node.left)
+                        p = node.left
+                    if node.right is not None:
+                        next.append(node.right)
+                        p = node.right
             current = next
+            next = []
         return res
 
