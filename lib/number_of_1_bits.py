@@ -19,6 +19,6 @@ class Solution(object):
         return cnt
 
 
-if __name__ == 'main':
+if __name__ == '__main__':
     solution = Solution()
     assert solution.hammingWeight(11) == 3
