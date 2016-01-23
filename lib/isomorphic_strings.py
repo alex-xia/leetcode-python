@@ -73,4 +73,8 @@ class Solution(object):
 if __name__ == '__main__':
     sol = Solution()
     print(sol.isIsomorphic('aba','cdc'))
+    assert sol.isIsomorphic('aba','cdc') == True
     print(sol.isIsomorphic('aba','cdd'))
+    assert sol.isIsomorphic('aba','cdd') == False
+    print(sol.isIsomorphic('aba','ccc'))
+    assert sol.isIsomorphic('aba','ccc') == False
