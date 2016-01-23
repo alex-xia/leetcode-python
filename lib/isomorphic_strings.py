@@ -51,6 +51,7 @@ class Solution(object):
         :rtype: bool
         """
         s_lookup = dict()
+        t_lookup = dict()
         n = len(s)
         for i in range(n):
             sc = s[i]
@@ -61,6 +62,12 @@ class Solution(object):
                     return False
             else:
                 s_lookup[sc] = i
+                if tc in t_lookup:
+                    p = t_lookup[tc]
+                    if sc != s[p]:
+                        return False
+                else:
+                    t_lookup[tc] = i
         return True
 
 if __name__ == '__main__':
