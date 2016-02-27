@@ -57,6 +57,36 @@ class Solution(object):
         dfs(coins, amount, 0)
         return -1 if self.min_depth == ubound else self.min_depth
 
+    def coinChange_dp(self, coins, amount):
+        """
+        :type coins: List[int]
+        :type amount: int
+        :rtype: int
+        """
+        if amount == 0:
+            return 0
+        good_coins = []
+        for coin in coins:
+            if coin == amount:
+                return 1
+            if coin < amount:
+                good_coins.append(coin)
+        if len(good_coins) == 0:
+            return -1
+        coins = good_coins
+        dp = [[amount+1] * (amount+1) for _ in range(len(coins))]
+        for i in range(len(coins)):
+            dp[i][0] = 0
+        for i in range(0, amount+1, coins[0]):
+            dp[0][i] = i / coins[0]
+        for i in range(1, len(coins)):
+            for val in range(1, coins[i]):
+                dp[i][val] = dp[i-1][val]
+            for val in range(coins[i], amount+1):
+                dp[i][val] = min(dp[i-1][val], dp[i][val-coins[i]] + 1)
+        res = dp[len(coins)-1][amount]
+        return res if res <= amount else -1
+
     def coinChange_2(self, coins, amount):
         """
         :type coins: List[int]
@@ -80,20 +110,20 @@ class Solution(object):
 
 if __name__ == '__main__':
     sol = Solution()
-    coins = [1,2,5]
-    print sol.coinChange(coins,11)
-    coins = [2]
-    print sol.coinChange(coins, 3)
-    coins = [86,210,29,22,402,140,16,466]
-    print sol.coinChange(coins, 3219)
-    coins = [186,419,83,408]
-    print sol.coinChange(coins, 6249)
-    coins = [2]
-    print sol.coinChange(coins, 4)
-    coins = [1,3,5]
-    print sol.coinChange(coins, 8)
-    coins = [58,92,387,421,194,208,231]
-    print sol.coinChange(coins, 7798)
-    coins = [1,2,5]
-    print sol.coinChange(coins, 11)
-    print sol.coinChange([227,99,328,299,42,322], 9847)
+    # coins = [1,2,5]
+    # print sol.coinChange(coins,11)
+    # coins = [2]
+    # print sol.coinChange(coins, 3)
+    # coins = [86,210,29,22,402,140,16,466]
+    # print sol.coinChange(coins, 3219)
+    # coins = [186,419,83,408]
+    # print sol.coinChange(coins, 6249)
+    # coins = [2]
+    # print sol.coinChange(coins, 4)
+    # coins = [1,3,5]
+    # print sol.coinChange(coins, 8)
+    # coins = [58,92,387,421,194,208,231]
+    # print sol.coinChange(coins, 7798)
+    # coins = [1,2,5]
+    # print sol.coinChange(coins, 11)
+    print sol.coinChange_dp([227,99,328,299,42,322], 9847)
