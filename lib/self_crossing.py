@@ -32,6 +32,21 @@ class Solution(object):
         :type x: List[int]
         :rtype: bool
         """
+        if len(x)<4:
+            return False
+        x.insert(0,0)
+        for i in xrange(4,len(x)):
+            if x[i]>=x[i-2] and x[i-1]<=x[i-3]:
+                return True
+            if i>4 and x[i-4]<=x[i-2]<=x[i]+x[i-4] and x[i-1]<=x[i-3]<=x[i-5]+x[i-1]:
+                return True
+        return False
+    
+    def isSelfCrossing_bad(self, x):
+        """
+        :type x: List[int]
+        :rtype: bool
+        """
         if len(x) < 4:
             return False
         x.insert(0, 0)
