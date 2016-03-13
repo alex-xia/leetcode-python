@@ -41,7 +41,7 @@ class Solution(object):
             if i>4 and x[i-4]<=x[i-2]<=x[i]+x[i-4] and x[i-1]<=x[i-3]<=x[i-5]+x[i-1]:
                 return True
         return False
-    
+
     def isSelfCrossing_bad(self, x):
         """
         :type x: List[int]
