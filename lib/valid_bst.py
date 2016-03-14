@@ -54,9 +54,41 @@ class Solution(object):
             print pre_output.val if pre_output is not None else 'None'
         return True
 
+    def isValidBST_recursion(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        if root is None:
+            return True
+        self.pre_output = None
+        def in_order_check(node):
+            if self.is_leaf(node):
+                if self.pre_output is not None and node.val <= self.pre_output.val:
+                    return False
+                self.pre_output = node
+                return True
+            if node.left:
+                if not in_order_check(node.left):
+                    return False
+            if self.pre_output is not None and node.val <= self.pre_output.val:
+                return False
+            self.pre_output = node
+            if node.right:
+                if not in_order_check(node.right):
+                    return False
+            return True
+        return in_order_check(root)
+
+    @staticmethod
+    def is_leaf(node):
+        assert node is not None
+        return node.left is None and node.right is None
 
 if __name__ == '__main__':
     s = Solution()
     bt = BinaryTree()
     bt.root = bt.from_list([5,3,8,2,4,7,11, None, None, None, None, None, None, 9])
-    print s.isValidBST(bt.root)
+    print s.isValidBST_recursion(bt.root)
+    bt.root = bt.from_list([1,2,3,4,5,6])
+    print s.isValidBST_recursion(bt.root)
