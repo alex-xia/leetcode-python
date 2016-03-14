@@ -16,6 +16,8 @@ class BinaryTree:
         def build(i):
             if i >= len(arr):
                 return None
+            if arr[i] is None:
+                return None
             node = TreeNode(arr[i])
             node.left = build(i*2+1)
             node.right = build(i*2+2)
